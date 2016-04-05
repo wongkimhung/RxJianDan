@@ -1,11 +1,12 @@
 package com.rtfsc.rxjiandan.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by kdroid on 16-3-29.
  */
-public class FreshNews {
+public class FreshNews implements Serializable{
     public static final int PAGE_FIRST = 1;
 
     /**

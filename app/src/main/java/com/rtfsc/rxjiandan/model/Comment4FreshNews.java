@@ -1,9 +1,11 @@
 package com.rtfsc.rxjiandan.model;
 
+import java.io.Serializable;
+
 /**
  * Created by kdroid on 16-3-28.
  */
-public class Comment4FreshNews {
+public class Comment4FreshNews implements Serializable{
     private String status;
     private Post post;
     private String next_url;

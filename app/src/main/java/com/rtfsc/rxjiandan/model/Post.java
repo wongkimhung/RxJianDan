@@ -1,11 +1,12 @@
 package com.rtfsc.rxjiandan.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by kdroid on 16-3-29.
  */
-public class Post {
+public class Post implements Serializable{
     private int id;
     private String url;
     private String title;
@@ -117,7 +118,7 @@ public class Post {
     }
 
 
-    public static class CustomFieldsBean {
+    public static class CustomFieldsBean implements Serializable{
         private List<String> thumb_c;
 
         public List<String> getThumb_c() {

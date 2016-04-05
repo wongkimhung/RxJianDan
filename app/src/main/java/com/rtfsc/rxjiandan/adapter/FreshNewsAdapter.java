@@ -1,6 +1,7 @@
 package com.rtfsc.rxjiandan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -20,16 +21,13 @@ import com.rtfsc.rxjiandan.callback.LoadResultCallBack;
 import com.rtfsc.rxjiandan.model.FreshNews;
 import com.rtfsc.rxjiandan.model.Post;
 import com.rtfsc.rxjiandan.rest.executor.FreshNewsExecutor;
+import com.rtfsc.rxjiandan.ui.activity.FreshNewsDetailActivity;
 import com.rtfsc.rxjiandan.ui.fragment.FreshNewsFragment;
-import com.rtfsc.rxjiandan.utils.ShareUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.rtfsc.rxjiandan.util.ShareUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by kdroid on 16-3-30.
@@ -40,13 +38,12 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
     private boolean isLargeMode;
     private Context mContext;
     private FreshNewsFragment mFragment;
-    private List<Post> mPosts;
+    private FreshNews mFreshNews;
 
     public FreshNewsAdapter(FreshNewsFragment fragment, boolean isLargeMode) {
         this.mFragment = fragment;
         this.mContext = fragment.getActivity().getApplicationContext();
         this.isLargeMode = isLargeMode;
-        mPosts = new ArrayList<>();
         int loadingResource = isLargeMode ? R.drawable.ic_loading_large : R.drawable.ic_loading_small;
     }
 
@@ -84,7 +81,7 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
 
     @Override
     public void onBindViewHolder(FreshNewsAdapter.ViewHolder holder, final int position) {
-        final Post post = mPosts.get(position);
+        final Post post = mFreshNews.getPosts().get(position);
         Glide.with(mContext).load(post.getCustom_fields().getThumb_c().get(0)).into(holder.img);
         holder.tv_title.setText(post.getTitle());
         holder.tv_info.setText(post.getAuthor().getName() + "@" + post.getTags().get(0).getTitle());
@@ -109,18 +106,21 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
             setAnimation(holder.ll_content, position);
         }
 
-        if (position == mPosts.size() - 1) {
+        if (position == mFreshNews.getPosts().size() - 1) {
             loadMore();
         }
     }
 
     private void toDetailActivity(int position) {
-
+        Intent intent = new Intent(mFragment.getActivity(), FreshNewsDetailActivity.class);
+        intent.putExtra(FreshNewsDetailActivity.DATA_FRESH_NEWS, mFreshNews);
+        intent.putExtra(FreshNewsDetailActivity.DATA_POSITION, position);
+        mFragment.getActivity().startActivity(intent);
     }
 
     @Override
     public int getItemCount() {
-        return mPosts.size();
+        return mFreshNews == null ? 0 : mFreshNews.getPosts().size();
     }
 
     public void loadMore() {
@@ -132,26 +132,22 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
 
         /*if (NetWorkUtil.isNetWorkConnected(mActivity)) {*/
         new FreshNewsExecutor.Builder().setPage(page + "").build().get()
-                .map(new Func1<FreshNews, List<Post>>() {
+                .subscribe(new Action1<FreshNews>() {
                     @Override
-                    public List<Post> call(FreshNews freshNews) {
-                        return freshNews.getPosts();
-                    }
-                })
-                .subscribe(new Action1<List<Post>>() {
-                    @Override
-                    public void call(List<Post> posts) {
+                    public void call(FreshNews freshNews) {
                         mFragment.loadFinish(null);
                         if (page == 1) {
-                            mPosts.clear();
+                            mFreshNews = freshNews;
+                        } else {
+                            mFreshNews.getPosts().addAll(freshNews.getPosts());
                         }
-                        mPosts.addAll(posts);
                         notifyDataSetChanged();
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         mFragment.onError(LoadResultCallBack.ERROR_NET, ConstantString.LOAD_FAILED);
+                        throwable.printStackTrace();
                     }
                 });
          /*}else {

@@ -1,4 +1,4 @@
-package com.rtfsc.rxjiandan.utils;
+package com.rtfsc.rxjiandan.util;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.rtfsc.rxjiandan.utils;
+package com.rtfsc.rxjiandan.util;
 
 import android.content.Context;
 import android.widget.Toast;

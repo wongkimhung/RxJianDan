@@ -16,7 +16,7 @@ import com.rtfsc.rxjiandan.callback.LoadFinishCallBack;
 import com.rtfsc.rxjiandan.callback.LoadMoreListener;
 import com.rtfsc.rxjiandan.callback.LoadResultCallBack;
 import com.rtfsc.rxjiandan.ui.view.AutoLoadRecyclerView;
-import com.rtfsc.rxjiandan.utils.Toastor;
+import com.rtfsc.rxjiandan.util.Toastor;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
