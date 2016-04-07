@@ -85,7 +85,6 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
         Glide.with(mContext).load(post.getCustom_fields().getThumb_c().get(0)).into(holder.img);
         holder.tv_title.setText(post.getTitle());
         holder.tv_info.setText(post.getAuthor().getName() + "@" + post.getTags().get(0).getTitle());
-
         if (isLargeMode) {
 
             holder.tv_share.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +100,7 @@ public class FreshNewsAdapter extends RecyclerView.Adapter<FreshNewsAdapter.View
                     toDetailActivity(position);
                 }
             });
+            holder.tv_views.setText("浏览"+post.getComment_count()+"次");
             setAnimation(holder.card, position);
         } else {
             setAnimation(holder.ll_content, position);

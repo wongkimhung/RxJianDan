@@ -36,7 +36,7 @@ public class FreshNewsFragment extends BaseFragment implements LoadFinishCallBac
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_news, container, false);
+        View view = inflater.inflate(R.layout.frag_autoload_recycler, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

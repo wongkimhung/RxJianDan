@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.rtfsc.rxjiandan.R;
 import com.rtfsc.rxjiandan.ui.fragment.FreshNewsFragment;
+import com.rtfsc.rxjiandan.ui.fragment.JokeFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FreshNewsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new JokeFragment()).commit();
     }
 
     private void initToolbar() {
