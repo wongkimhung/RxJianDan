@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.rtfsc.rxjiandan.R;
 import com.rtfsc.rxjiandan.adapter.JokeAdapter;
@@ -68,7 +69,7 @@ public class JokeFragment extends BaseFragment implements LoadFinishCallBack, Lo
 
     @Override
     public void onError(int code, String msg) {
-        mToast.showSingleLongToast(ConstantString.LOAD_FAILED);
+        Toast.makeText(getActivity().getApplicationContext(),ConstantString.LOAD_FAILED,Toast.LENGTH_SHORT).show();
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

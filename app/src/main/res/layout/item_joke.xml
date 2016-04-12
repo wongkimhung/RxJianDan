@@ -10,7 +10,9 @@
     app:cardCornerRadius="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-    app:contentPadding="16dp">
+    app:contentPadding="16dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"

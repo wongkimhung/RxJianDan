@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.rtfsc.rxjiandan.R;
 import com.rtfsc.rxjiandan.adapter.FreshNewsDetailAdapter;
@@ -27,8 +29,8 @@ public class FreshNewsDetailActivity extends AppCompatActivity {
     ViewPager viewPager;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.swipe)
-    SwipeRefreshLayout mSwipe;
+//    @Bind(R.id.swipe)
+//    SwipeRefreshLayout mSwipe;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,10 +47,10 @@ public class FreshNewsDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        mSwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
+        /*mSwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+                android.R.color.holo_red_light);*/
     }
 
     private void initData() {
@@ -57,6 +59,21 @@ public class FreshNewsDetailActivity extends AppCompatActivity {
         int position = getIntent().getIntExtra(DATA_POSITION, 0);
         viewPager.setAdapter(new FreshNewsDetailAdapter(getSupportFragmentManager(), freshNews.getPosts()));
         viewPager.setCurrentItem(position);
+        /*viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        mSwipe.setEnabled(false);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        mSwipe.setEnabled(true);
+                        break;
+                }
+                return false;
+            }
+        });*/
     }
 
     @Override

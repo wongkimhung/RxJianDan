@@ -38,6 +38,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.ViewHolder> im
         this.mContext = fragment.getActivity().getApplicationContext();
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_joke, parent, false));
@@ -79,8 +80,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.ViewHolder> im
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-//                        mFragment.onError(LoadResultCallBack.ERROR_NET, ConstantString.LOAD_FAILED);
-                        throwable.printStackTrace();
+                        mFragment.onError(LoadResultCallBack.ERROR_NET, ConstantString.LOAD_FAILED);
                     }
                 });
     }
@@ -88,9 +88,9 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.ViewHolder> im
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.tv_author)
         TextView tv_author;
-        @Bind(R.id.tv_content)
-        TextView tv_time;
         @Bind(R.id.tv_time)
+        TextView tv_time;
+        @Bind(R.id.tv_content)
         TextView tv_content;
         @Bind(R.id.tv_like)
         TextView tv_like;
