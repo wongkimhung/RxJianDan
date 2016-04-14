@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import com.rtfsc.rxjiandan.R;
 import com.rtfsc.rxjiandan.ui.activity.MainActivity;
+import com.rtfsc.rxjiandan.ui.fragment.BoringFragment;
 import com.rtfsc.rxjiandan.ui.fragment.FreshNewsFragment;
 import com.rtfsc.rxjiandan.ui.fragment.JokeFragment;
+import com.rtfsc.rxjiandan.ui.fragment.PictureFragment;
+import com.rtfsc.rxjiandan.ui.fragment.SisterFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +46,6 @@ public class MainPresenter implements NavigationView.OnNavigationItemSelectedLis
         Fragment to;
         switch (item.getItemId()) {
             case R.id.nav_home:
-                Toast.makeText(mContext, "nav_home", Toast.LENGTH_SHORT).show();
                 if (!mFragments.containsKey(FreshNewsFragment.class.getSimpleName())) {
                     to = new FreshNewsFragment();
                     mFragments.put(FreshNewsFragment.class.getSimpleName(), to);
@@ -54,12 +56,31 @@ public class MainPresenter implements NavigationView.OnNavigationItemSelectedLis
                 mContentFragment = to;
                 break;
             case R.id.nav_messages:
-                Toast.makeText(mContext, "nav_messages", Toast.LENGTH_SHORT).show();
                 if (!mFragments.containsKey(JokeFragment.class.getSimpleName())) {
                     to = new JokeFragment();
                     mFragments.put(JokeFragment.class.getSimpleName(), to);
                 } else {
                     to = mFragments.get(JokeFragment.class.getSimpleName());
+                }
+                switchFragment(mContentFragment, to);
+                mContentFragment = to;
+                break;
+            case R.id.nav_friends:
+                if (!mFragments.containsKey(BoringFragment.class.getSimpleName())) {
+                    to = new BoringFragment();
+                    mFragments.put(BoringFragment.class.getSimpleName(), to);
+                } else {
+                    to = mFragments.get(BoringFragment.class.getSimpleName());
+                }
+                switchFragment(mContentFragment, to);
+                mContentFragment = to;
+                break;
+            case R.id.nav_discussion:
+                if (!mFragments.containsKey(SisterFragment.class.getSimpleName())) {
+                    to = new SisterFragment();
+                    mFragments.put(SisterFragment.class.getSimpleName(), to);
+                } else {
+                    to = mFragments.get(SisterFragment.class.getSimpleName());
                 }
                 switchFragment(mContentFragment, to);
                 mContentFragment = to;

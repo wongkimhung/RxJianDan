@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import com.bumptech.glide.Glide;
 import com.rtfsc.rxjiandan.callback.LoadFinishCallBack;
 import com.rtfsc.rxjiandan.callback.LoadMoreListener;
 
@@ -82,20 +83,20 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
             super.onScrollStateChanged(recyclerView, newState);
             switch (newState) {
                 case SCROLL_STATE_IDLE:
-//                    imageLoader.resume();
+                    Glide.with(recyclerView.getContext().getApplicationContext()).resumeRequests();
                     break;
                 case SCROLL_STATE_DRAGGING:
                     if (pauseOnScroll) {
-//                        imageLoader.pause();
+                        Glide.with(recyclerView.getContext().getApplicationContext()).pauseRequests();
                     } else {
-//                        imageLoader.resume();
+                        Glide.with(recyclerView.getContext().getApplicationContext()).resumeRequests();
                     }
                     break;
                 case SCROLL_STATE_SETTLING:
                     if (pauseOnFling) {
-//                        imageLoader.pause();
+                        Glide.with(recyclerView.getContext().getApplicationContext()).pauseRequests();
                     } else {
-//                        imageLoader.resume();
+                        Glide.with(recyclerView.getContext().getApplicationContext()).resumeRequests();
                     }
                     break;
             }
